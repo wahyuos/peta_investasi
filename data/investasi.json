@@ -1,0 +1,58 @@
+{
+  "TW 1 - 2025" : {
+    "Kecamatan Ciamis": {
+      "nilai": 12500000000,
+      "sektor": "Perdagangan & Jasa"
+    },
+    "Kecamatan Panjalu": {
+      "nilai": 8700000000,
+      "sektor": "Pertanian"
+    },
+    "Kecamatan Rancah": {
+      "nilai": 4200000000,
+      "sektor": "Perikanan"
+    }
+  },
+  "TW 2 - 2025" : {
+    "Kecamatan Ciamis": {
+      "nilai": 2500000000,
+      "sektor": "Perdagangan & Jasa"
+    },
+    "Kecamatan Panjalu": {
+      "nilai": 18700000000,
+      "sektor": "Pertanian"
+    },
+    "Kecamatan Rancah": {
+      "nilai": 14200000000,
+      "sektor": "Perikanan"
+    }
+  },
+  "TW 3 - 2025" : {
+    "Kecamatan Ciamis": {
+      "nilai": 5500000000,
+      "sektor": "Perdagangan & Jasa"
+    },
+    "Kecamatan Panjalu": {
+      "nilai": 1200000000,
+      "sektor": "Pertanian"
+    },
+    "Kecamatan Rancah": {
+      "nilai": 3200000000,
+      "sektor": "Perikanan"
+    }
+  },
+  "TW 4 - 2025" : {
+    "Kecamatan Ciamis": {
+      "nilai": 9000000000,
+      "sektor": "Perdagangan & Jasa"
+    },
+    "Kecamatan Panjalu": {
+      "nilai": 11100000000,
+      "sektor": "Pertanian"
+    },
+    "Kecamatan Rancah": {
+      "nilai": 23000000000,
+      "sektor": "Perikanan"
+    }
+  }
+}
