@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peta Investasi Kabupaten Ciamis</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+
+        #filter {
+            position: absolute;
+            top: 10px;
+            left: 60px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-family: sans-serif;
+        }
+
+        .label-kecamatan {
+            background: rgba(255, 255, 255, 0.75);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            /* efek fade in/out */
+        }
+
+        .legend {
+            background: white;
+            padding: 8px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            line-height: 18px;
+            color: #333;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="filter">
+        <label for="tahun">Tahun: </label>
+        <select id="tahun"></select>
+    </div>
+    <div id="map"></div>
+
+    <script>
+        // Inisialisasi peta
+        const map = L.map('map').setView([-7.2829717, 108.476444], 11); // Koordinat Ciamis
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        let semuaData = {};
+        let tahunAktif;
+        let geojsonLayer;
+        let markerLayer = L.layerGroup().addTo(map);
+        let labelLayer = L.layerGroup().addTo(map);
+
+        function getColor(value) {
+            return value > 10000000000 ? '#006400' :
+                value > 5000000000 ? '#228B22' :
+                    value > 1000000000 ? '#7CFC00' :
+                        '#ADFF2F';
+        }
+
+        function style(feature) {
+            const nilai = semuaData[tahunAktif]?.[feature.properties.nama]?.nilai || 0;
+            return {
+                fillColor: getColor(nilai),
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                fillOpacity: 0.7
+            };
+        }
+
+        function renderPeta() {
+            if (geojsonLayer) map.removeLayer(geojsonLayer);
+            markerLayer.clearLayers();
+            labelLayer.clearLayers();
+
+            fetch('data/ciamis.geojson')
+                .then(res => res.json())
+                .then(geoData => {
+                    geojsonLayer = L.geoJSON(geoData, {
+                        style: style,
+                        onEachFeature: (feature, layer) => {
+                            const nama = feature.properties.nama;
+                            const info = semuaData[tahunAktif]?.[nama];
+                            if (!info) {
+                                layer.bindPopup(`<b>${nama}</b><br>Data belum ada.`);
+                                return;
+                            }
+
+                            layer.bindPopup(`
+                                <b>${nama}</b><br>
+                                ${tahunAktif}<br>
+                                Total Investasi: <b>Rp ${info.nilai.toLocaleString()}</b><br>
+                                Sektor: ${info.sektor}
+                            `);
+                        }
+                    }).addTo(map);
+
+                    // Pastikan marker muncul setelah layer benar-benar ditambahkan
+                    geojsonLayer.eachLayer(layer => {
+                        try {
+                            const latlng = [layer.feature.properties.lat, layer.feature.properties.lng];
+                            console.log(latlng);
+
+                            const nama = layer.feature.properties.nama;
+                            const info = semuaData[tahunAktif]?.[nama];
+
+                            // Marker dengan popup
+                            const markerText = info
+                                ? `<b>${nama}</b><br>
+                                ${tahunAktif}<br>
+                                Total Investasi: <b>Rp ${info.nilai.toLocaleString()}</b><br>
+                                Sektor: ${info.sektor}`
+                                : `<b>${nama}</b><br>Data belum ada`;
+                            L.marker(latlng).bindPopup(markerText).addTo(markerLayer);
+
+                            // Label permanen di tengah polygon
+                            const label = L.marker(latlng, {
+                                icon: L.divIcon({
+                                    className: 'label-kecamatan',
+                                    html: nama,
+                                    iconSize: [100, 20]
+                                }),
+                                interactive: false
+                            });
+                            label.addTo(labelLayer);
+                        } catch (e) {
+                            console.warn("Gagal membuat marker/label untuk:", layer.feature.properties.nama_kecamatan);
+                        }
+                    });
+                });
+        }
+
+        // Load semua data investasi
+        fetch('data/investasi.json')
+            .then(res => res.json())
+            .then(data => {
+                semuaData = data;
+                const tahunList = Object.keys(data).sort();
+                const select = document.getElementById('tahun');
+                tahunList.forEach(t => {
+                    const opt = document.createElement('option');
+                    opt.value = t;
+                    opt.textContent = t;
+                    select.appendChild(opt);
+                });
+                tahunAktif = tahunList[tahunList.length - 1]; // tahun terakhir
+                select.value = tahunAktif;
+                renderPeta();
+
+                select.addEventListener('change', e => {
+                    tahunAktif = e.target.value;
+                    renderPeta();
+                });
+            });
+
+
+
+        // Legenda
+        const legend = L.control({ position: 'bottomright' });
+        legend.onAdd = function () {
+            const div = L.DomUtil.create('div', 'legend');
+            const grades = [0, 1000000000, 5000000000, 10000000000];
+            div.innerHTML += '<b>Nilai Investasi</b><br>';
+            for (let i = 0; i < grades.length; i++) {
+                const from = grades[i];
+                const to = grades[i + 1];
+                div.innerHTML +=
+                    '<i style="background:' + getColor(from + 1) + '"></i> ' +
+                    'Rp ' + from.toLocaleString() +
+                    (to ? '&ndash; Rp ' + to.toLocaleString() + '<br>' : '+');
+            }
+            return div;
+        };
+        legend.addTo(map);
+
+        map.on('zoomend', () => {
+            const currentZoom = map.getZoom();
+            if (currentZoom < 11) {
+                if (map.hasLayer(labelLayer)) {
+                    map.removeLayer(labelLayer);
+                }
+            } else {
+                if (!map.hasLayer(labelLayer)) {
+                    map.addLayer(labelLayer);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
