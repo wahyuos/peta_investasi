@@ -92,6 +92,16 @@
                 font-size: 10px;
             }
         }
+
+        .leaflet-popup-content {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .leaflet-popup-content img {
+            display: block;
+            margin: 4px auto;
+        }
     </style>
 </head>
 
@@ -169,17 +179,28 @@
                         onEachFeature: (feature, layer) => {
                             const nama = feature.properties.nama;
                             const info = semuaData[periodeAktif]?.[nama];
-                            if (!info) {
-                                layer.bindPopup(`<b>${nama}</b><br>Data belum ada.`);
-                                return;
+                            let popupHTML = `<b>${nama}</b><br>`;
+
+                            if (info) {
+                                if (info.foto) {
+                                    console.log(info.foto);
+
+                                    popupHTML += `
+                                    <div style="margin-top:16px;margin-bottom:16px;">
+                                    <img src="${info.foto}" alt="${nama}" 
+                                        style="width:100%;max-width:200px;border-radius:6px;box-shadow:0 2px 5px rgba(0,0,0,0.3);" />
+                                    </div>`;
+                                }
+
+                                popupHTML += `
+                                    ${periodeAktif}<br>
+                                    Total Investasi: <b>Rp ${info.nilai.toLocaleString()}</b><br>
+                                    Sektor: ${info.sektor}<br>`;
+                            } else {
+                                popupHTML += `Data belum tersedia.`;
                             }
 
-                            layer.bindPopup(`
-                                <b>${nama}</b><br>
-                                ${periodeAktif}<br>
-                                Total Investasi: <b>Rp ${info.nilai.toLocaleString()}</b><br>
-                                Sektor: ${info.sektor}
-                            `);
+                            layer.bindPopup(popupHTML);
 
                             layer.on({
                                 mouseover: highlightFeature,
