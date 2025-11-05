@@ -97,8 +97,8 @@
 
 <body>
     <div id="filter">
-        <label for="tahun">Tahun: </label>
-        <select id="tahun"></select>
+        <label for="periode">Periode: </label>
+        <select id="periode"></select>
     </div>
     <div id="map"></div>
 
@@ -112,22 +112,21 @@
         }).addTo(map);
 
         let semuaData = {};
-        let tahunAktif;
+        let periodeAktif;
         let geojsonLayer;
         let markerLayer = L.layerGroup().addTo(map);
         let labelLayer = L.layerGroup().addTo(map);
 
         function getColor(nilai) {
-            return nilai === 0 ? '#888' : // abu gelap untuk nilai 0
-                nilai > 50000000000 ? '#4B0082' : // ungu tua
-                    nilai > 20000000000 ? '#6A0DAD' :
-                        nilai > 10000000000 ? '#9370DB' :
-                            nilai > 5000000000 ? '#C8A2C8' :
-                                '#E6E6FA'; // lavender muda
+            return nilai > 10000000000 ? '#075d00' : // ungu tua
+                nilai > 5000000000 ? '#158c0c' :
+                    nilai > 1000000000 ? '#2fb026' :
+                        nilai > 500000000 ? '#5ad451' :
+                            '#88f081';
         }
 
         function style(feature) {
-            const nilai = semuaData[tahunAktif]?.[feature.properties.nama]?.nilai || 0;
+            const nilai = semuaData[periodeAktif]?.[feature.properties.nama]?.nilai || 0;
             return {
                 fillColor: getColor(nilai),
                 weight: 1,
@@ -169,7 +168,7 @@
                         style: style,
                         onEachFeature: (feature, layer) => {
                             const nama = feature.properties.nama;
-                            const info = semuaData[tahunAktif]?.[nama];
+                            const info = semuaData[periodeAktif]?.[nama];
                             if (!info) {
                                 layer.bindPopup(`<b>${nama}</b><br>Data belum ada.`);
                                 return;
@@ -177,7 +176,7 @@
 
                             layer.bindPopup(`
                                 <b>${nama}</b><br>
-                                ${tahunAktif}<br>
+                                ${periodeAktif}<br>
                                 Total Investasi: <b>Rp ${info.nilai.toLocaleString()}</b><br>
                                 Sektor: ${info.sektor}
                             `);
@@ -196,12 +195,12 @@
                             const latlng = [layer.feature.properties.lat, layer.feature.properties.lng];
 
                             const nama = layer.feature.properties.nama;
-                            const info = semuaData[tahunAktif]?.[nama];
+                            const info = semuaData[periodeAktif]?.[nama];
 
                             // Marker dengan popup
                             const markerText = info
                                 ? `<b>${nama}</b><br>
-                                ${tahunAktif}<br>
+                                ${periodeAktif}<br>
                                 Total Investasi: <b>Rp ${info.nilai.toLocaleString()}</b><br>
                                 Sektor: ${info.sektor}`
                                 : `<b>${nama}</b><br>Data belum ada`;
@@ -229,20 +228,20 @@
             .then(res => res.json())
             .then(data => {
                 semuaData = data;
-                const tahunList = Object.keys(data).sort();
-                const select = document.getElementById('tahun');
-                tahunList.forEach(t => {
+                const periodeList = Object.keys(data).sort();
+                const select = document.getElementById('periode');
+                periodeList.forEach(t => {
                     const opt = document.createElement('option');
                     opt.value = t;
                     opt.textContent = t;
                     select.appendChild(opt);
                 });
-                tahunAktif = tahunList[tahunList.length - 1]; // tahun terakhir
-                select.value = tahunAktif;
+                periodeAktif = periodeList[periodeList.length - 1]; // periode terakhir
+                select.value = periodeAktif;
                 renderPeta();
 
                 select.addEventListener('change', e => {
-                    tahunAktif = e.target.value;
+                    periodeAktif = e.target.value;
                     renderPeta();
                 });
             });
@@ -253,8 +252,9 @@
         const legend = L.control({ position: 'bottomleft' });
         legend.onAdd = function () {
             const div = L.DomUtil.create('div', 'legend');
-            const grades = [0, 5000000000, 10000000000, 20000000000, 50000000000];
-            div.innerHTML += '<b>Nilai Investasi</b><br>';
+            const grades = [0, 500000000, 1000000000, 5000000000, 10000000000];
+            div.innerHTML += '<b>Nilai Investasi</b><br>'
+
             for (let i = 0; i < grades.length; i++) {
                 const from = grades[i];
                 const to = grades[i + 1];
