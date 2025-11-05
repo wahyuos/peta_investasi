@@ -82,16 +82,16 @@
             margin-right: 10px;
         } */
 
-        @media (max-width: 768px) {
+        /* @media (max-width: 768px) {
             .legend {
-                bottom: 100px !important;
-                /* beri jarak dari bawah */
-                right: 10px !important;
-                max-width: 250px;
-                /* biar tidak melebar */
-                font-size: 11px;
+                bottom: 100px !important; */
+        /* beri jarak dari bawah */
+        /* right: 10px !important;
+                max-width: 250px; */
+        /* biar tidak melebar */
+        /* font-size: 11px;
             }
-        }
+        } */
     </style>
 </head>
 
@@ -250,7 +250,7 @@
 
 
         // Legenda
-        const legend = L.control({ position: 'bottomright' });
+        const legend = L.control({ position: 'bottomleft' });
         legend.onAdd = function () {
             const div = L.DomUtil.create('div', 'legend');
             const grades = [0, 5000000000, 10000000000, 20000000000, 50000000000];
