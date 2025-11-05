@@ -112,7 +112,8 @@
   "TW 2 - 2025" : {
     "Kecamatan Ciamis" : {
     "nilai": 56890916340,
-    "sektor": ""
+    "sektor": "",
+    "foto":"foto/kec_ciamis.jpeg"
         },
     "Kecamatan Cikoneng" : {
     "nilai": 7391467979,
