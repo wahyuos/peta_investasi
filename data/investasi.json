@@ -1,58 +1,222 @@
 {
   "TW 1 - 2025" : {
-    "Kecamatan Ciamis": {
-      "nilai": 12500000000,
-      "sektor": "Perdagangan & Jasa"
+    "Kecamatan Ciamis" : {
+    "nilai": 0,
+    "sektor": ""
+        },
+    "Kecamatan Cikoneng" : {
+    "nilai": 0,
+    "sektor": ""
     },
-    "Kecamatan Panjalu": {
-      "nilai": 8700000000,
-      "sektor": "Pertanian"
+    "Kecamatan Cijeungjing" : {
+    "nilai": 0,
+    "sektor": ""
     },
-    "Kecamatan Rancah": {
-      "nilai": 4200000000,
-      "sektor": "Perikanan"
+    "Kecamatan Sadananya" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Cidolog" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Cihaurbeuti" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Panumbangan" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Panjalu" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Kawali" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Panawangan" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Cipaku" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Jatinagara" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Rajadesa" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Sukadana" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Rancah" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Tambaksari" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Lakbok" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Banjarsari" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Pamarican" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Cimaragas" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Cisaga" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Sindangkasih" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Baregbeg" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Sukamantri" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Lumbung" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Purwadadi" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Banjaranyar" : {
+    "nilai": 0,
+    "sektor": ""
     }
   },
   "TW 2 - 2025" : {
-    "Kecamatan Ciamis": {
-      "nilai": 2500000000,
-      "sektor": "Perdagangan & Jasa"
+    "Kecamatan Ciamis" : {
+    "nilai": 56890916340,
+    "sektor": ""
+        },
+    "Kecamatan Cikoneng" : {
+    "nilai": 7391467979,
+    "sektor": ""
     },
-    "Kecamatan Panjalu": {
-      "nilai": 18700000000,
-      "sektor": "Pertanian"
+    "Kecamatan Cijeungjing" : {
+    "nilai": 65063663469,
+    "sektor": ""
     },
-    "Kecamatan Rancah": {
-      "nilai": 14200000000,
-      "sektor": "Perikanan"
-    }
-  },
-  "TW 3 - 2025" : {
-    "Kecamatan Ciamis": {
-      "nilai": 5500000000,
-      "sektor": "Perdagangan & Jasa"
+    "Kecamatan Sadananya" : {
+    "nilai": 0,
+    "sektor": ""
     },
-    "Kecamatan Panjalu": {
-      "nilai": 1200000000,
-      "sektor": "Pertanian"
+    "Kecamatan Cidolog" : {
+    "nilai": 5600000,
+    "sektor": ""
     },
-    "Kecamatan Rancah": {
-      "nilai": 3200000000,
-      "sektor": "Perikanan"
-    }
-  },
-  "TW 4 - 2025" : {
-    "Kecamatan Ciamis": {
-      "nilai": 9000000000,
-      "sektor": "Perdagangan & Jasa"
+    "Kecamatan Cihaurbeuti" : {
+    "nilai": 13703016301,
+    "sektor": ""
     },
-    "Kecamatan Panjalu": {
-      "nilai": 11100000000,
-      "sektor": "Pertanian"
+    "Kecamatan Panumbangan" : {
+    "nilai": 9113194826,
+    "sektor": ""
     },
-    "Kecamatan Rancah": {
-      "nilai": 23000000000,
-      "sektor": "Perikanan"
+    "Kecamatan Panjalu" : {
+    "nilai": 1120000000,
+    "sektor": ""
+    },
+    "Kecamatan Kawali" : {
+    "nilai": 2282791698,
+    "sektor": ""
+    },
+    "Kecamatan Panawangan" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Cipaku" : {
+    "nilai": 11013904,
+    "sektor": ""
+    },
+    "Kecamatan Jatinagara" : {
+    "nilai": 3200014142,
+    "sektor": ""
+    },
+    "Kecamatan Rajadesa" : {
+    "nilai": 904484815,
+    "sektor": ""
+    },
+    "Kecamatan Sukadana" : {
+    "nilai": 19252598424,
+    "sektor": ""
+    },
+    "Kecamatan Rancah" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Tambaksari" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Lakbok" : {
+    "nilai": 5180889844,
+    "sektor": ""
+    },
+    "Kecamatan Banjarsari" : {
+    "nilai": 10346421790,
+    "sektor": ""
+    },
+    "Kecamatan Pamarican" : {
+    "nilai": 999851838,
+    "sektor": ""
+    },
+    "Kecamatan Cimaragas" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Cisaga" : {
+    "nilai": 13206104350,
+    "sektor": ""
+    },
+    "Kecamatan Sindangkasih" : {
+    "nilai": 5078862819,
+    "sektor": ""
+    },
+    "Kecamatan Baregbeg" : {
+    "nilai": 19626490234,
+    "sektor": ""
+    },
+    "Kecamatan Sukamantri" : {
+    "nilai": 3112262593,
+    "sektor": ""
+    },
+    "Kecamatan Lumbung" : {
+    "nilai": 0,
+    "sektor": ""
+    },
+    "Kecamatan Purwadadi" : {
+    "nilai": 853121646,
+    "sektor": ""
+    },
+    "Kecamatan Banjaranyar" : {
+    "nilai": 1568088000,
+    "sektor": ""
     }
   }
 }
