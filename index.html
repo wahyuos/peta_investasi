@@ -2,8 +2,14 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google" value="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="whykmldn">
+    <meta name="description" content="Peta sebaran investasi di Kabupaten Ciamis">
+    <meta name="theme-color" content="#1d4ed8">
+    <link rel="shortcut icon" href="favicon.png">
     <title>Peta Investasi Kabupaten Ciamis</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -44,11 +50,17 @@
             white-space: nowrap;
             pointer-events: none;
             opacity: 1;
-            transition: opacity 0.5s ease;
-            /* efek fade in/out */
+            transform: scale(1);
+            transition: opacity 0.5s ease, transform 0.3s ease;
+        }
+
+        .label-hidden {
+            opacity: 0;
         }
 
         .legend {
+            position: relative;
+            bottom: 10px;
             background: white;
             padding: 8px;
             border-radius: 5px;
@@ -63,6 +75,11 @@
             float: left;
             margin-right: 8px;
             opacity: 0.7;
+        }
+
+        .leaflet-top.leaflet-right .legend {
+            margin-top: 20px;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -103,8 +120,28 @@
                 weight: 1,
                 opacity: 1,
                 color: 'white',
-                fillOpacity: 0.7
+                dashArray: '3',
+                fillOpacity: 0.6
             };
+        }
+
+        // Highlight interaktif
+        function highlightFeature(e) {
+            const layer = e.target;
+            layer.setStyle({
+                weight: 2,
+                color: '#666',
+                fillOpacity: 0.8
+            });
+            layer.bringToFront();
+        }
+
+        function resetHighlight(e) {
+            geojsonLayer.resetStyle(e.target);
+        }
+
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
         }
 
         function renderPeta() {
@@ -131,6 +168,12 @@
                                 Total Investasi: <b>Rp ${info.nilai.toLocaleString()}</b><br>
                                 Sektor: ${info.sektor}
                             `);
+
+                            layer.on({
+                                mouseover: highlightFeature,
+                                mouseout: resetHighlight,
+                                click: zoomToFeature
+                            });
                         }
                     }).addTo(map);
 
@@ -138,7 +181,6 @@
                     geojsonLayer.eachLayer(layer => {
                         try {
                             const latlng = [layer.feature.properties.lat, layer.feature.properties.lng];
-                            console.log(latlng);
 
                             const nama = layer.feature.properties.nama;
                             const info = semuaData[tahunAktif]?.[nama];
@@ -195,7 +237,7 @@
 
 
         // Legenda
-        const legend = L.control({ position: 'bottomright' });
+        const legend = L.control({ position: 'topright' });
         legend.onAdd = function () {
             const div = L.DomUtil.create('div', 'legend');
             const grades = [0, 1000000000, 5000000000, 10000000000];
@@ -212,7 +254,7 @@
         };
         legend.addTo(map);
 
-        map.on('zoomend', () => {
+        map.on('zoomend zoom', () => {
             const currentZoom = map.getZoom();
             if (currentZoom < 11) {
                 if (map.hasLayer(labelLayer)) {
@@ -224,6 +266,9 @@
                 }
             }
         });
+
+
+
     </script>
 </body>
 
